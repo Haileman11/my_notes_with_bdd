@@ -3,7 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/notes_list_bloc.dart';
 
-class NotesListView extends StatelessWidget {
+class NotesListView extends StatefulWidget {
+  const NotesListView({Key? key}) : super(key: key);
+
+  @override
+  State<NotesListView> createState() => _NotesListViewState();
+}
+
+class _NotesListViewState extends State<NotesListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,9 +18,10 @@ class NotesListView extends StatelessWidget {
         title: Text("Notes"),
         actions: [
           IconButton(
+              key: const Key("new_note"),
               onPressed: () {
                 Navigator.of(context).pushNamed(
-                  '/notes/note',
+                  '/notes/new_note',
                 );
               },
               icon: Icon(Icons.add))
@@ -25,6 +33,10 @@ class NotesListView extends StatelessWidget {
             ScaffoldMessenger.of(context)
                 .showSnackBar(const SnackBar(content: Text("Loaded")));
           }
+          if (state.runtimeType == NotesListLoading) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text("Loading")));
+          }
         },
         builder: (context, state) {
           switch (state.runtimeType) {
@@ -33,6 +45,7 @@ class NotesListView extends StatelessWidget {
             case NotesListLoaded:
               final noteListLoadedState = state as NotesListLoaded;
               final notes = noteListLoadedState.notesList;
+
               return ListView.builder(
                 itemCount: notes.length,
                 itemBuilder: (_, index) => ListTile(
@@ -45,7 +58,9 @@ class NotesListView extends StatelessWidget {
               return Container(
                 alignment: Alignment.center,
                 height: MediaQuery.of(context).size.height / 2,
-                child: Text('Add notes'),
+                child: const Center(
+                  child: Text("You have no saved notes."),
+                ),
               );
             default:
               state as NotesListError;

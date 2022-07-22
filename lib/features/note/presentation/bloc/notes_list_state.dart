@@ -14,11 +14,11 @@ class NotesListLoading extends NotesListState {}
 class NotesListError extends NotesListState {
   final String message;
 
-  const NotesListError(this.message);
+  const NotesListError({required this.message});
 }
 
 class NotesListLoaded extends NotesListState {
   final List<Note> notesList;
 
-  const NotesListLoaded(this.notesList);
+  const NotesListLoaded({required this.notesList});
 }

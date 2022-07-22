@@ -20,16 +20,19 @@ class NoteRepositoryImpl implements NoteRepository {
   }
 
   @override
-  Future<Either<Failure, void>> addNote(Note note) async {
+  Future<Either<Failure, bool>> addNote(Note note) async {
     try {
-      return Right(await localDataSource.addNote(note as NoteModel));
+      final response = await localDataSource
+          .addNote(NoteModel(title: note.title, content: note.content));
+      return Right(response);
     } catch (e) {
+      print(e);
       return Left(CacheFailure());
     }
   }
 
   @override
-  Future<Either<Failure, void>> deleteNote(Note note) async {
+  Future<Either<Failure, bool>> deleteNote(Note note) async {
     try {
       return Right(await localDataSource.deleteNote(note as NoteModel));
     } catch (e) {
@@ -38,7 +41,7 @@ class NoteRepositoryImpl implements NoteRepository {
   }
 
   @override
-  Future<Either<Failure, void>> editNote(Note note) async {
+  Future<Either<Failure, bool>> editNote(Note note) async {
     try {
       return Right(await localDataSource.editNote(note as NoteModel));
     } catch (e) {
