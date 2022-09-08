@@ -24,7 +24,7 @@ Route<dynamic> routeGenerator(RouteSettings routeSettings) {
     default:
       return MaterialPageRoute(builder: (BuildContext context) {
         return const Center(
-          child: Text("Page not found"),
+          child: CircularProgressIndicator.adaptive(),
         );
       });
   }

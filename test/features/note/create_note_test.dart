@@ -4,29 +4,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import './step/injection_is_setup.dart';
-import './step/clean_up_after_the_test.dart';
-import './step/the_database_saves_the_note.dart';
-import './step/the_app_is_on_page.dart';
-import './step/i_see_text.dart';
-import './step/i_enter_into_input_field.dart';
-import './step/i_tap_icon.dart';
-import './step/i_see_widget.dart';
+import '../../step/injection_is_setup.dart';
+import '../../step/clean_up_after_the_test.dart';
+import '../../step/the_database_saves_the_note.dart';
+import '../../step/the_app_is_on_page.dart';
+import '../../step/i_enter_into_input_field.dart';
+import '../../step/i_tap_icon.dart';
+import '../../step/i_see_widget.dart';
+import '../../step/i_see_text.dart';
 
 void main() {
   Future<void> bddSetUp(WidgetTester tester) async {
     await injectionIsSetup(tester);
   }
+
   Future<void> bddTearDown(WidgetTester tester) async {
     await cleanUpAfterTheTest(tester);
   }
-  group('''Edit Note''', () {
-    testWidgets('''Should be able to edit note when title is valid''', (tester) async {
+
+  group('''Create Note''', () {
+    testWidgets('''Should show a success message when given valid title''',
+        (tester) async {
       try {
         await bddSetUp(tester);
         await theDatabaseSavesTheNote(tester);
-        await theAppIsOnPage(tester, '/notes/note');
-        await iSeeText(tester, 'Edit note');
+        await theAppIsOnPage(tester, '/notes/new_note');
         await iEnterIntoInputField(tester, "Shopping list", 0);
         await iEnterIntoInputField(tester, "battery, groceries", 1);
         await iTapIcon(tester, Icons.save);
@@ -36,12 +38,12 @@ void main() {
         await bddTearDown(tester);
       }
     });
-    testWidgets('''Should not make changes to the new note if title is empty''', (tester) async {
+    testWidgets('''Should display error when title is empty''', (tester) async {
       try {
         await bddSetUp(tester);
-        await theAppIsOnPage(tester, '/notes/note');
-        await iSeeText(tester, 'Edit note');
+        await theAppIsOnPage(tester, '/notes/new_note');
         await iEnterIntoInputField(tester, "", 0);
+        await iEnterIntoInputField(tester, "battery, groceries", 1);
         await iTapIcon(tester, Icons.save);
         await iSeeText(tester, 'Title can not be empty');
       } finally {

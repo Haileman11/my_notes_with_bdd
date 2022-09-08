@@ -27,22 +27,27 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  authentication_repository:
+    path: packages/authentication_repository
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   equatable: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  formz: ^0.4.1
   get_it: ^7.2.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   path_provider: ^2.0.11
   shared_preferences: ^2.0.15
-
+  user_repository:
+    path: packages/user_repository
 dev_dependencies:
-  flutter_gherkin: null
   bdd_widget_test: ^1.4.2
-  build_runner:
+  bloc_test: ^9.0.2
+  build_runner: null
+  flutter_gherkin: null
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -51,7 +56,9 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.3.1
   mockito: ^5.2.0
+  mocktail: ^0.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
