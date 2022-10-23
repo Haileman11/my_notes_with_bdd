@@ -4,27 +4,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../step/injection_is_setup.dart';
-import '../../step/clean_up_after_the_test.dart';
-import '../../step/the_database_saves_the_note.dart';
-import '../../step/the_app_is_on_page.dart';
-import '../../step/i_see_text.dart';
-import '../../step/i_enter_into_input_field.dart';
-import '../../step/i_tap_icon.dart';
-import '../../step/i_see_widget.dart';
+import './step/injection_is_setup.dart';
+import './step/clean_up_after_the_test.dart';
+import './step/the_database_saves_the_note.dart';
+import './step/the_app_is_on_page.dart';
+import './step/i_see_text.dart';
+import './step/i_enter_into_input_field.dart';
+import './step/i_tap_icon.dart';
+import './step/i_see_widget.dart';
 
 void main() {
   Future<void> bddSetUp(WidgetTester tester) async {
     await injectionIsSetup(tester);
   }
-
   Future<void> bddTearDown(WidgetTester tester) async {
     await cleanUpAfterTheTest(tester);
   }
-
   group('''Edit Note''', () {
-    testWidgets('''Should be able to edit note when title is valid''',
-        (tester) async {
+    testWidgets('''Should be able to edit note when title is valid''', (tester) async {
       try {
         await bddSetUp(tester);
         await theDatabaseSavesTheNote(tester);
@@ -39,8 +36,7 @@ void main() {
         await bddTearDown(tester);
       }
     });
-    testWidgets('''Should not make changes to the new note if title is empty''',
-        (tester) async {
+    testWidgets('''Should not make changes to the new note if title is empty''', (tester) async {
       try {
         await bddSetUp(tester);
         await theAppIsOnPage(tester, '/notes/note');

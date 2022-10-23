@@ -4,14 +4,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../step/injection_is_setup.dart';
-import '../../step/clean_up_after_the_test.dart';
-import '../../step/the_saved_notes_list_is_not_empty.dart';
-import '../../step/the_app_is_running.dart';
-import '../../step/i_see_widget.dart';
-import '../../step/the_saved_notes_list_is_empty.dart';
-import '../../step/i_dont_see_widget.dart';
-import '../../step/i_see_text.dart';
+import './step/injection_is_setup.dart';
+import './step/clean_up_after_the_test.dart';
+import './step/the_saved_notes_list_is_not_empty.dart';
+import './step/the_app_is_on_page.dart';
+import './step/i_see.dart';
+import './step/the_saved_notes_list_is_empty.dart';
+import './step/i_dont_see_widget.dart';
+import './step/i_see_text.dart';
 
 void main() {
   Future<void> bddSetUp(WidgetTester tester) async {
@@ -28,8 +28,8 @@ void main() {
       try {
         await bddSetUp(tester);
         await theSavedNotesListIsNotEmpty(tester);
-        await theAppIsRunning(tester);
-        await iSeeWidget(tester, ListView);
+        await theAppIsOnPage(tester, '/notes');
+        await iSee(tester, "NOTES_LIST");
       } finally {
         await bddTearDown(tester);
       }
@@ -40,7 +40,7 @@ void main() {
       try {
         await bddSetUp(tester);
         await theSavedNotesListIsEmpty(tester);
-        await theAppIsRunning(tester);
+        await theAppIsOnPage(tester, '/notes');
         await iDontSeeWidget(tester, ListView);
         await iSeeText(tester, 'You have no saved notes.');
       } finally {

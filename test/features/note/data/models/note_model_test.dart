@@ -19,8 +19,9 @@ void main() {
   group('fromJson', () {
     test('should return a NoteModel from note.json', () {
       final note = json.decode(fixture('note'));
+      print(note);
       final result = NoteModel.fromJson(note);
-      expect(result, NoteModel);
+      expect(result, NoteModel(content: note['content'], title: note['title']));
     });
   });
   group('toJson', () {
